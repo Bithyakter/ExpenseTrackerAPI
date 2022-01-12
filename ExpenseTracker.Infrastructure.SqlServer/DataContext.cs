@@ -10,11 +10,16 @@ namespace ExpenseTracker.Infrastructure.SqlServer
 {
     public class DataContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    string connectionString = "Data Source=URANUS; Initial Catalog=ExpenseWebAPIDB; User Id=sa; Password=abcd123!";
+
+        //    optionsBuilder.UseSqlServer(connectionString);
+        //}
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            string connectionString = "Data Source=URANUS; Initial Catalog=ExpenseWebAPIDB; User Id=sa; Password=abcd123!";
-           
-            optionsBuilder.UseSqlServer(connectionString);
+
         }
 
         /// <summary>

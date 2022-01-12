@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Infrastructure.Contracts;
+﻿using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Infrastructure.Contracts;
 using ExpenseTracker.Infrastructure.SqlServer;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
     /// <summary>
     /// Implements IUnitOfWork interface.
     /// </summary>
-     
+
     public class UnitOfWork : IUnitOfWork
     {
         protected readonly DataContext _context;
@@ -19,11 +20,10 @@ namespace ExpenseTracker.Infrastructure.Repositories
         public UnitOfWork(DataContext context)
         {
             this._context = context;
+            
         }
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
+        
+        public IExpenseRepository ExpenseRepository { get; }
 
         private IExpenseCategoryRepository expenseCategoryRepository;
         public IExpenseCategoryRepository ExpenseCategoryRepository
@@ -35,6 +35,11 @@ namespace ExpenseTracker.Infrastructure.Repositories
 
                 return expenseCategoryRepository;
             }
-        }     
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }

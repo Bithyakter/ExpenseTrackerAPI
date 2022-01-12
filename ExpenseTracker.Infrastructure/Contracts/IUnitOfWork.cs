@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpenseTracker.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace ExpenseTracker.Infrastructure.Contracts
         /// </summary>
         void SaveChanges();
 
+        IExpenseRepository ExpenseRepository { get; }
         IExpenseCategoryRepository ExpenseCategoryRepository { get; }
     }
 }

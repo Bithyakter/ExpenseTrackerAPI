@@ -13,7 +13,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
     {
         public ExpenseCategoryRepository(DataContext context) : base(context)
         {
-
+            
         }
 
         #region IsExpenseCategoryDuplicate
