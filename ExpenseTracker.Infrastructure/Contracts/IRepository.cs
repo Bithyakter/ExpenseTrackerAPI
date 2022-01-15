@@ -33,7 +33,7 @@ namespace ExpenseTracker.Infrastructure.Contracts
         /// </summary>
         /// <param name="Key">Primary Key of the Table</param>
         /// <returns>Retrieved row in the form of model object.</returns>
-        T Get(int Key);
+        T Get(int key);
 
         /// <summary>
         ///  Loads all rows from the database table.
@@ -59,7 +59,7 @@ namespace ExpenseTracker.Infrastructure.Contracts
         /// Updates database table with the information available in the given object.
         /// </summary>
         /// <param name="entity">Object to be updated.</param>
-        void Update(T entity);
+        T Update(T entity);
     }
     #endregion
 }

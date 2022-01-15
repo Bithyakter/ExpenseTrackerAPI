@@ -17,33 +17,44 @@ namespace ExpenseTracker.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery] int id)    //FromQuery=fixed size 32
+        public IActionResult GetAll()
         {
-            var getExpense = _unitOfWork.ExpenseRepository.GetAll();
-
-            return Ok(getExpense);
+            var expense = _unitOfWork.ExpenseRepository.GetAll();
+            return Ok(expense);
+        }
+        [HttpPost("delete")]
+        public IActionResult Delete([FromForm] int Id)
+        {
+            var expense = _unitOfWork.ExpenseRepository.Get(Id)
+;
+            _unitOfWork.ExpenseRepository.Delete(expense);
+            _unitOfWork.SaveChanges();
+            return Ok();
+        }
+        [HttpGet("id")]
+        public IActionResult GET(int id)
+        {
+            var expense = _unitOfWork.ExpenseRepository.Get(id)
+;
+            return Ok(expense);
         }
 
-
         [HttpPost]
-        public IActionResult AddExpenseAndCategory()
+        public IActionResult SaveOrUpdate([FromBody] Expense expense)
         {
-            var expense = new Expense
+            if (expense.ExpenseID == 0)
             {
-                //ExpenseDate = 2022/01/01,
-                Amount = 12000
-            };
-
-            var exCategory = new ExpenseCategory
+                var expenseAdd = _unitOfWork.ExpenseRepository.Add(expense);
+                _unitOfWork.SaveChanges();
+                return Ok(expenseAdd);
+            }
+            else
             {
-                CategoryName = "House-Rent"
-            };
+                var expenseUp = _unitOfWork.ExpenseRepository.Update(expense);
+                _unitOfWork.SaveChanges();
 
-            _unitOfWork.ExpenseRepository.Add(expense);
-            _unitOfWork.ExpenseCategoryRepository.Add(exCategory);
-            _unitOfWork.SaveChanges();
-
-            return Ok();
+                return Ok(expenseUp);
+            }
         }
     }
 }

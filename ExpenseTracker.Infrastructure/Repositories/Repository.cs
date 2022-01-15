@@ -15,7 +15,6 @@ namespace ExpenseTracker.Infrastructure.Repositories
     /// </summary>
     /// <typeparam name="T">T is a model class</typeparam>
 
-    #region Repository
     public class Repository<T> : IRepository<T> where T : class
     {
         protected readonly DataContext _context;
@@ -35,6 +34,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
             }
         }
 
+
         public virtual void Delete(T entity)
         {
             try
@@ -45,25 +45,28 @@ namespace ExpenseTracker.Infrastructure.Repositories
             {
                 throw;
             }
+
         }
 
         public T FirstOrDefault(Expression<Func<T, bool>> predicate)
         {
             try
             {
-                return _context.Set<T>().AsNoTracking().FirstOrDefault(predicate);
+                return _context.Set<T>()
+                    .AsNoTracking()
+                    .FirstOrDefault(predicate);
             }
-            catch (Exception)
+            catch
             {
                 throw;
             }
         }
-
         public virtual T Get(int id)
         {
             try
             {
-                return _context.Set<T>().Find(id);
+                return _context.Set<T>().Find(id)
+;
             }
             catch
             {
@@ -73,14 +76,12 @@ namespace ExpenseTracker.Infrastructure.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().AsQueryable().AsNoTracking().ToList();
-        }
-
-        public virtual IEnumerable<T> Query(Expression<Func<T, bool>> predicate)
-        {
             try
             {
-                return _context.Set<T>().AsQueryable().AsNoTracking().Where(predicate).ToList();
+                return _context.Set<T>()
+                    .AsQueryable()
+                    .AsNoTracking()
+                    .ToList();
             }
             catch
             {
@@ -88,11 +89,28 @@ namespace ExpenseTracker.Infrastructure.Repositories
             }
         }
 
-        public virtual void Update(T entity)
+        public IEnumerable<T> Query(Expression<Func<T, bool>> predicate)
         {
             try
             {
-                _context.Set<T>().Update(entity);
+                return _context.Set<T>()
+                    .AsQueryable()
+                    .AsNoTracking()
+                    .Where(predicate)
+                    .ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public T Update(T entity)
+        {
+            try
+            {
+                return _context.Set<T>().Update(entity).Entity;
+
             }
             catch
             {
@@ -100,5 +118,5 @@ namespace ExpenseTracker.Infrastructure.Repositories
             }
         }
     }
-    #endregion
+
 }

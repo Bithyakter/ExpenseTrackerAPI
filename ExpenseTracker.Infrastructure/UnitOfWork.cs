@@ -15,31 +15,38 @@ namespace ExpenseTracker.Infrastructure.Repositories
 
     public class UnitOfWork : IUnitOfWork
     {
-        protected readonly DataContext _context;
-
+        private IExpenseCategoryRepository expenseCategoryRepository;
+        private IExpenseRepository expenseRepository;
+        protected readonly DataContext dbcontext;
         public UnitOfWork(DataContext context)
         {
-            this._context = context;
-            
+            this.dbcontext = context;
         }
-        
-        public IExpenseRepository ExpenseRepository { get; }
+        public void SaveChanges()
+        {
+            dbcontext.SaveChanges();
+        }
 
-        private IExpenseCategoryRepository expenseCategoryRepository;
         public IExpenseCategoryRepository ExpenseCategoryRepository
         {
             get
             {
                 if (expenseCategoryRepository == null)
-                    expenseCategoryRepository = new ExpenseCategoryRepository(_context);
+                    expenseCategoryRepository = new ExpenseCategoryRepository(dbcontext);
 
                 return expenseCategoryRepository;
             }
         }
 
-        public void SaveChanges()
+        public IExpenseRepository ExpenseRepository
         {
-            _context.SaveChanges();
+            get
+            {
+                if (expenseRepository == null)
+                    expenseRepository = new ExpenseRepository(dbcontext);
+
+                return expenseRepository;
+            }
         }
     }
 }
