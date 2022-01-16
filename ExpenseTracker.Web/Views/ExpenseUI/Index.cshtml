@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ExpenseDTO>
+@{
+     ViewData["Title"] = "Expense List";
+}
+
+<h1>ExpenseList</h1>
+
+<div class="container">
+    <div>
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>CategoryName</th>
+                    <th>Amount</th>
+                    <th>Expense Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+               @{
+                   var i=1;
+                  foreach (var item in Model)
+                  {
+                      <tr>
+                      <td>@i</td>
+                      <td>@item.CategoryName</td>
+                      <td>@item.Amount</td>
+                      <td>@item.ExpenseDate.ToString("dd-MMM-yyyy")</td>
+                      <td>
+                          <button>Save</button>
+                          <button>Delete</button>
+                      </td>
+                      </tr>
+                      i++;
+                  }
+                                      
+               }
+
+            </tbody>
+
+        </table>
+    </div>
+</div>

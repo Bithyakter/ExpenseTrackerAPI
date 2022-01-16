@@ -1,5 +1,6 @@
 ﻿using ExpenseTracker.Domain.Entities;
 using ExpenseTracker.Infrastructure.Contracts;
+using ExpenseTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,18 +11,22 @@ namespace ExpenseTracker.API.Controllers
     public class ExpenseController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        //private readonly IRepository<Expense> _exRepo;
-        public ExpenseController(IUnitOfWork unitOfWork)
+        public IExpenseRepository _expenseRepo { get; }
+        public ExpenseController(IUnitOfWork unitOfWork, IExpenseRepository expenseRepository)
         {
             _unitOfWork = unitOfWork;
+            _expenseRepo = expenseRepository;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var expense = _unitOfWork.ExpenseRepository.GetAll();
+            //var expense = _unitOfWork.ExpenseRepository.GetAll();
+            var expense = _expenseRepo.getAllEnpenses();
+
             return Ok(expense);
         }
+
         [HttpPost("delete")]
         public IActionResult Delete([FromForm] int Id)
         {
@@ -31,6 +36,7 @@ namespace ExpenseTracker.API.Controllers
             _unitOfWork.SaveChanges();
             return Ok();
         }
+
         [HttpGet("id")]
         public IActionResult GET(int id)
         {

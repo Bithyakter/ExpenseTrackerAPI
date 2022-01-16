@@ -1,4 +1,5 @@
 ﻿using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Domain.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace ExpenseTracker.Infrastructure.Contracts
 {
     public interface IExpenseRepository : IRepository<Expense>
     {
-        IEnumerable<Expense> getAllEnpenses();
+        IList<ExpenseVM>getAllEnpenses();
+
         //Expense GetExpenses(int id);
         //void SaveExpenses(Expense expences);
 

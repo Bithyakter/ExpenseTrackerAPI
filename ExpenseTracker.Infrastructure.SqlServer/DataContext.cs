@@ -33,3 +33,4 @@ namespace ExpenseTracker.Infrastructure.SqlServer
         public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
     }
 }
+

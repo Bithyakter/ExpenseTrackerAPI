@@ -1,4 +1,5 @@
 ﻿using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Domain.ViewModel;
 using ExpenseTracker.Infrastructure.Contracts;
 using ExpenseTracker.Infrastructure.SqlServer;
 using Microsoft.EntityFrameworkCore;
@@ -12,24 +13,23 @@ namespace ExpenseTracker.Infrastructure.Repositories
 {
     public class ExpenseRepository : Repository<Expense>, IExpenseRepository
     {
-        //private DbContext _db;
-        //private DbSet<Expense> Expenses;
-
-        //public ExpenseRepository(DbContext db)
-        //{
-        //    this._db = db;
-        //    Expenses = _db.Set<Expense>();
-        //}
-
+        private readonly DataContext _context;
         public ExpenseRepository(DataContext context) : base(context)
         {
-            
+            this._context = context;
         }
-
-        public IEnumerable<Expense> getAllEnpenses()
+        public IList<ExpenseVM> getAllEnpenses()
         {
-            //return Expense.AsNoTracking().AsEnumerable();
-            return _context.Set<Expense>().AsQueryable().AsNoTracking().ToList();
+            var list = (from a in _context.Expenses
+                        join c in _context.ExpenseCategories on a.CategoryID equals c.CategoryID
+                        select new ExpenseVM
+                        {
+                            ExpenseID=a.ExpenseID,
+                            CategoryName=c.CategoryName,
+                            Amount=a.Amount,
+                            ExpenseDate=a.ExpenseDate,
+                        }).ToList();
+            return list;    
         }
 
         //public void DeleteExpense(int id)
