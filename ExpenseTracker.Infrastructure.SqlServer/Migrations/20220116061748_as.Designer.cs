@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpenseTracker.Infrastructure.SqlServer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220111071953_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220116061748_as")]
+    partial class @as
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,17 @@ namespace ExpenseTracker.Infrastructure.SqlServer.Migrations
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("smalldatetime");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("smalldatetime");
+
                     b.Property<DateTime>("ExpenseDate")
                         .HasColumnType("smalldatetime");
+
+                    b.Property<bool?>("IsRowDeleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("ExpenseID");
 

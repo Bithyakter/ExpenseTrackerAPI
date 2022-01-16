@@ -32,8 +32,17 @@ namespace ExpenseTracker.Infrastructure.SqlServer.Migrations
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("smalldatetime");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("smalldatetime");
+
                     b.Property<DateTime>("ExpenseDate")
                         .HasColumnType("smalldatetime");
+
+                    b.Property<bool?>("IsRowDeleted")
+                        .HasColumnType("bit");
 
                     b.HasKey("ExpenseID");
 

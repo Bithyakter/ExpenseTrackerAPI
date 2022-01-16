@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExpenseTracker.Infrastructure.SqlServer.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class @as : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,10 @@ namespace ExpenseTracker.Infrastructure.SqlServer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExpenseDate = table.Column<DateTime>(type: "smalldatetime", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CategoryID = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "smalldatetime", nullable: true),
+                    DateModified = table.Column<DateTime>(type: "smalldatetime", nullable: true),
+                    IsRowDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -13,7 +13,7 @@ namespace ExpenseTracker.Domain.Entities
     /// </summary>
 
     #region Expense
-    public class Expense
+    public class Expense : BaseModel
     {
         /// <summary>
         /// Primary key of the table Expenses.
