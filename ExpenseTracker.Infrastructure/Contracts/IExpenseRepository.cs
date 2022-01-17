@@ -10,7 +10,7 @@ namespace ExpenseTracker.Infrastructure.Contracts
 {
     public interface IExpenseRepository : IRepository<Expense>
     {
-        IList<ExpenseVM>getAllEnpenses();
+        IList<ExpenseVM>getAllExpenses();
 
         //Expense GetExpenses(int id);
         //void SaveExpenses(Expense expences);

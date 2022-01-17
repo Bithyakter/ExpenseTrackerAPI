@@ -14,8 +14,8 @@ namespace ExpenseTracker.Web.Controllers
             var expense = new List<ExpenseDTO>();
 
             using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync("http://localhost:5000/api/Expense");
+           {
+               var response = await client.GetAsync("http://localhost:60228/api/Expense");
 
                 string result = response.Content.ReadAsStringAsync().Result;
                 expense = JsonConvert.DeserializeObject<List<ExpenseDTO>>(result);

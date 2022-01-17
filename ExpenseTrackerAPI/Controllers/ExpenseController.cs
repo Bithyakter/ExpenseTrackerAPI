@@ -22,7 +22,7 @@ namespace ExpenseTracker.API.Controllers
         public IActionResult GetAll()
         {
             //var expense = _unitOfWork.ExpenseRepository.GetAll();
-            var expense = _expenseRepo.getAllEnpenses();
+            var expense = _expenseRepo.getAllExpenses();
 
             return Ok(expense);
         }
