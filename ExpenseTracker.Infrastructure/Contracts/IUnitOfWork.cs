@@ -15,13 +15,13 @@ namespace ExpenseTracker.Infrastructure.Contracts
         void SaveChanges();
 
         /// <summary>
-        /// Create properties for Expense categories
-        /// </summary>
-        IExpenseCategoryRepository ExpenseCategoryRepository { get; }
-       
-        /// <summary>
         /// Create properties for Expense
         /// </summary>
         IExpenseRepository ExpenseRepository { get; }
+
+        /// <summary>
+        /// Create properties for Expense categories
+        /// </summary>
+        IExpenseCategoryRepository ExpenseCategoryRepository { get; }
     }
 }

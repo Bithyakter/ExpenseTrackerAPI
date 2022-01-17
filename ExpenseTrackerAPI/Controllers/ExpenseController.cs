@@ -11,18 +11,15 @@ namespace ExpenseTracker.API.Controllers
     public class ExpenseController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public IExpenseRepository _expenseRepo { get; }
-        public ExpenseController(IUnitOfWork unitOfWork, IExpenseRepository expenseRepository)
+        public ExpenseController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _expenseRepo = expenseRepository;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            //var expense = _unitOfWork.ExpenseRepository.GetAll();
-            var expense = _expenseRepo.getAllExpenses();
+            var expense = _unitOfWork.ExpenseRepository.getAllExpenses();
 
             return Ok(expense);
         }

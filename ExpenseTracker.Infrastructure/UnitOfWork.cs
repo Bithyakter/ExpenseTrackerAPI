@@ -17,6 +17,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
     {
         private IExpenseCategoryRepository expenseCategoryRepository;
         private IExpenseRepository expenseRepository;
+
         protected readonly DataContext dbcontext;
         public UnitOfWork(DataContext context)
         {

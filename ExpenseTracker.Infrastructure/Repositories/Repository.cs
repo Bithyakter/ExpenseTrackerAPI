@@ -34,7 +34,6 @@ namespace ExpenseTracker.Infrastructure.Repositories
             }
         }
 
-
         public virtual void Delete(T entity)
         {
             try
@@ -47,7 +46,6 @@ namespace ExpenseTracker.Infrastructure.Repositories
             }
 
         }
-
         public T FirstOrDefault(Expression<Func<T, bool>> predicate)
         {
             try
