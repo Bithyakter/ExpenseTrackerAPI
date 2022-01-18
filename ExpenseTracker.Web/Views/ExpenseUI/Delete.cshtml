@@ -1,0 +1,39 @@
+﻿@model ExpenseDTO
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container">
+
+    <form asp-action="Delete" method="post">
+        <div class="row">
+            <div class="col-2"></div> <div class="col-8 text-center">
+                <h5 class="card-title text-center bg-danger" style="color:white">Are you Sure you want to Delete this?</h5>
+            </div>
+        </div>
+        <hr />
+        <div class="row mb-3">
+            <div class="col-2">
+                <label>Expense Date:</label>
+            </div>
+            <div class="col-8">
+                <input class="form-control" readonly asp-for="ExpenseDate" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label>Amount:</label>
+            </div>
+            <div class="col-8">
+                <input class="form-control" readonly asp-for="Amount" />
+                <button class="btn btn-danger float-right mt-2" type="submit">Delete</button>
+
+            </div>
+        </div>
+        <input asp-for="ExpenseID" type="hidden" />
+
+    </form>
+</div>
+
+
+

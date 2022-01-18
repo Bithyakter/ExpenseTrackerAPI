@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExpenseTracker.Web.Models
 {
-    public class ExpenseDTO
+    public class ExpenseDTO : BaseDTO
     {
         public int ExpenseID { get; set; }
         public int CategoryID { get; set; }

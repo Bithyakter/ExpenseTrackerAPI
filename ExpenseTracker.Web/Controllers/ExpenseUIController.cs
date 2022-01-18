@@ -101,5 +101,37 @@ namespace ExpenseTracker.Web.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
+        #region HttpGet-Delete
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var expense = new ExpenseDTO();
+            using (var client = new HttpClient())
+            {
+
+                var response = await client.GetAsync("http://localhost:60228/api/Expense/getbyid?id=" + id);
+                string result = response.Content.ReadAsStringAsync().Result;
+                expense = JsonConvert.DeserializeObject<ExpenseDTO>(result);
+            }
+            return View(expense);
+        }
+        #endregion
+
+        #region HttpPost-Delete
+        [HttpPost]
+        public async Task<IActionResult> Delete(ExpenseDTO expense)
+        {
+            var expenseJson = JsonConvert.SerializeObject(expense);
+            using (var client = new HttpClient())
+            {
+                HttpContent httpContent = new StringContent(expenseJson, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("http://localhost:60228/api/Expense/delete", httpContent);
+
+                string result = response.Content.ReadAsStringAsync().Result;
+            }
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }
