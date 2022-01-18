@@ -3,37 +3,73 @@
     ViewData["Title"] = "Delete";
 }
 
-<div class="container">
 
-    <form asp-action="Delete" method="post">
-        <div class="row">
-            <div class="col-2"></div> <div class="col-8 text-center">
-                <h5 class="card-title text-center bg-danger" style="color:white">Are you Sure you want to Delete this?</h5>
-            </div>
-        </div>
-        <hr />
-        <div class="row mb-3">
-            <div class="col-2">
-                <label>Expense Date:</label>
-            </div>
-            <div class="col-8">
-                <input class="form-control" readonly asp-for="ExpenseDate" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <label>Amount:</label>
-            </div>
-            <div class="col-8">
-                <input class="form-control" readonly asp-for="Amount" />
-                <button class="btn btn-danger float-right mt-2" type="submit">Delete</button>
 
-            </div>
-        </div>
-        <input asp-for="ExpenseID" type="hidden" />
 
-    </form>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://use.fontawesome.com/c7a575b4de.js"></script>
+
+<div class="row content-wrapper content">
+    <div class="col-md-8">
+        <div>
+            <section>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Delete Expense</h3>
+                    </div>
+                    <hr />
+                        <form role="form" method="post" asp-action="Delete">
+
+                             <div class="row">
+                                <div class="col-2"></div> <div class="col-8 text-center">
+                                    <h5 class="card-title text-center bg-danger" style="color:white">Are you Sure you want to Delete this?</h5>
+                                </div>
+                            </div>
+
+                            <div class="box-body">
+                              <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                              <input asp-for="ExpenseID" type="hidden" />
+                                @*<div class="form-group">
+                                    <label asp-for="CategoryName" readonly class="control-label"></label>
+                                        <select asp-for="CategoryID" class="form-control">
+                                        <option value="">-- Select Category --</option>
+                                        @foreach(var item in Model.CategoryDropDownList)
+                                        {
+                                            <option value="@item.CategoryID">
+                                                @item.CategoryName
+                                            </option>
+                                        }
+                                    </select> 
+                                </div>*@
+
+                                <div class="form-group">
+                                    <label asp-for="Amount" class="control-label"></label>
+                                    <input asp-for="Amount" readonly class="form-control" />
+                                    <span asp-validation-for="Amount" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="ExpenseDate" class="control-label"></label>
+                                    <input asp-for="ExpenseDate" readonly class="form-control" />
+                                    <span asp-validation-for="ExpenseDate" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="col-lg-4 col-md-4 pull-right form-group">
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                        <i class="fa fa-trash-o"></i>
+                                        <span>Delete Expense</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="form-group btn btn-danger btn-block fa fa-arrow-circle-left" href="/ExpenseUI/Index"><span> Back</span></a>
+                                </div>
+                            </div>
+
+                       </form>
+                </div>
+            </section>
+        </div>
+    </div>
 </div>
-
-
-

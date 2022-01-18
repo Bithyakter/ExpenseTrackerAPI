@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Infrastructure.Contracts;
+﻿using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Infrastructure.Contracts;
 using ExpenseTracker.Infrastructure.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,7 +16,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
     /// </summary>
     /// <typeparam name="T">T is a model class</typeparam>
 
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : BaseModel
     {
         protected readonly DataContext _context;
         public Repository(DataContext context)
@@ -26,6 +27,8 @@ namespace ExpenseTracker.Infrastructure.Repositories
         {
             try
             {
+                entity.IsRowDeleted = false;
+                entity.DateCreated = DateTime.Now;
                 return _context.Set<T>().Add(entity).Entity;
             }
             catch
@@ -38,7 +41,9 @@ namespace ExpenseTracker.Infrastructure.Repositories
         {
             try
             {
-                _context.Set<T>().Remove(entity);
+                entity.IsRowDeleted = true;
+                entity.DateModified = DateTime.Now;
+                _context.Set<T>().Update(entity);
             }
             catch
             {
@@ -51,7 +56,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
             try
             {
                 return _context.Set<T>()
-                    .AsNoTracking()
+                    .AsNoTracking().Where(x => x.IsRowDeleted.Equals(false))
                     .FirstOrDefault(predicate);
             }
             catch
@@ -63,8 +68,8 @@ namespace ExpenseTracker.Infrastructure.Repositories
         {
             try
             {
-                return _context.Set<T>().Find(id)
-;
+                return _context.Set<T>().Find(id);
+                ;
             }
             catch
             {
@@ -78,7 +83,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
             {
                 return _context.Set<T>()
                     .AsQueryable()
-                    .AsNoTracking()
+                    .AsNoTracking().Where(x => x.IsRowDeleted.Equals(false))
                     .ToList();
             }
             catch
@@ -93,7 +98,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
             {
                 return _context.Set<T>()
                     .AsQueryable()
-                    .AsNoTracking()
+                    .AsNoTracking().Where(x => x.IsRowDeleted.Equals(false))
                     .Where(predicate)
                     .ToList();
             }
@@ -107,6 +112,8 @@ namespace ExpenseTracker.Infrastructure.Repositories
         {
             try
             {
+                entity.IsRowDeleted = false;
+                entity.DateModified = DateTime.Now;
                 return _context.Set<T>().Update(entity).Entity;
 
             }

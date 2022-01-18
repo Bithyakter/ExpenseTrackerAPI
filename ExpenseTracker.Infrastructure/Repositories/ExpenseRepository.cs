@@ -22,6 +22,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
         {
             var list = (from a in _context.Expenses
                         join c in _context.ExpenseCategories on a.CategoryID equals c.CategoryID
+                        where a.IsRowDeleted.Equals(false)
                         select new ExpenseVM
                         {
                             ExpenseID = a.ExpenseID,
