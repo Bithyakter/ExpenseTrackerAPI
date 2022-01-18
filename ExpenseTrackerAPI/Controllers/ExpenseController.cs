@@ -34,7 +34,7 @@ namespace ExpenseTracker.API.Controllers
             return Ok();
         }
 
-        [HttpGet("id")]
+        [HttpGet("getbyid")]
         public IActionResult GET(int id)
         {
             var expense = _unitOfWork.ExpenseRepository.Get(id)

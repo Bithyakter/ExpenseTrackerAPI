@@ -63,8 +63,8 @@ namespace ExpenseTracker.Web.Controllers
         }
         #endregion
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        #region HttpGet-Edit
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var ExpenseCategory = new List<ExpenseCategoryDTO>();
@@ -83,5 +83,23 @@ namespace ExpenseTracker.Web.Controllers
             expenseD.CategoryDropDownList = ExpenseCategory;
             return View(expenseD);
         }
+        #endregion
+
+        #region HttpPost-Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ExpenseDTO expense)
+        {
+            var expenseJson = JsonConvert.SerializeObject(expense);
+            using (var client = new HttpClient())
+            {
+                HttpContent httpContent = new StringContent(expenseJson, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("http://localhost:60228/api/Expense", httpContent);
+
+                string result = response.Content.ReadAsStringAsync().Result;
+            }
+            return RedirectToAction("Index");
+        }
+        #endregion
     }
 }
