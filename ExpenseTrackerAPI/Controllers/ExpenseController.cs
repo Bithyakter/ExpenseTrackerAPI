@@ -24,6 +24,14 @@ namespace ExpenseTracker.API.Controllers
             return Ok(expense);
         }
 
+        [HttpGet("getbyid")]
+        public IActionResult GET(int id)
+        {
+            var expense = _unitOfWork.ExpenseRepository.Get(id);
+            return Ok(expense);
+        }
+
+        #region HttpPost-Delete
         [HttpPost("delete")]
         public IActionResult Delete([FromBody] Expense expense)
         {
@@ -32,15 +40,9 @@ namespace ExpenseTracker.API.Controllers
             _unitOfWork.SaveChanges();
             return Ok();
         }
+        #endregion
 
-        [HttpGet("getbyid")]
-        public IActionResult GET(int id)
-        {
-            var expense = _unitOfWork.ExpenseRepository.Get(id)
-;
-            return Ok(expense);
-        }
-
+        #region SaveOrUpdate
         [HttpPost]
         public IActionResult SaveOrUpdate([FromBody] Expense expense)
         {
@@ -58,5 +60,6 @@ namespace ExpenseTracker.API.Controllers
                 return Ok(expenseUp);
             }
         }
+        #endregion
     }
 }

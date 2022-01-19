@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Infrastructure.Contracts;
+﻿using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Infrastructure.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +24,43 @@ namespace ExpenseTracker.API.Controllers
             return Ok(category);
         }
 
+        [HttpGet("getbyid")]
+        public IActionResult GET(int id)
+        {
+            var category = _unitOfWork.ExpenseCategoryRepository.Get(id);
+            return Ok(category);
+        }
+
+        #region SaveOrUpdate
+        [HttpPost]
+        public IActionResult SaveOrUpdate([FromBody] ExpenseCategory category)
+        {
+            if (category.CategoryID == 0)
+            {
+                var categoryAdd = _unitOfWork.ExpenseCategoryRepository.Add(category);
+                _unitOfWork.SaveChanges();
+                return Ok(categoryAdd);
+            }
+            else
+            {
+                var categoryUp = _unitOfWork.ExpenseCategoryRepository.Update(category);
+                _unitOfWork.SaveChanges();
+
+                return Ok(categoryUp);
+            }
+        }
+        #endregion
+
+        #region HttpPost-Delete
+        [HttpPost("delete")]
+        public IActionResult Delete([FromBody] ExpenseCategory category)
+        {
+            var categoryInDb = _unitOfWork.ExpenseCategoryRepository.Get(category.CategoryID);
+            _unitOfWork.ExpenseCategoryRepository.Delete(categoryInDb);
+            _unitOfWork.SaveChanges();
+
+            return Ok();
+        }
+        #endregion
     }
 }

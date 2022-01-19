@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ExpenseCategoryDTO>
+@{
+    ViewBag.Title = "Expense Category List";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://use.fontawesome.com/c7a575b4de.js"></script>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Expense Category List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="ExpenseCategoryUI" asp-action="Create" class="btn btn-primary">
+                <i class="fa fa-plus"></i> &nbsp; Create Expense Category
+            </a>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <table class="table table-bordered table-striped" border="1" style="width:100%">
+        <thead class="table-info">
+            <tr class="text-center">
+                <th>SL</th>
+                <th>Category Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+         @{
+            var i = 1;
+            @foreach(var obj in Model)
+            {
+            <tr>
+                <td width="20%">@i</td>
+                <td width="40%">@obj.CategoryName</td>
+               
+                <td class="text-center" width="40%">
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="ExpenseCategoryUI" asp-route-Id="@obj.CategoryID" asp-action="Edit" class="btn btn-outline-success mx-2">
+                            <i class="fa fa-pencil"></i>  
+                        </a>
+                        <a asp-controller="ExpenseCategoryUI" asp-route-Id="@obj.CategoryID" asp-action="Delete" class="btn btn-outline-danger mx-2">
+                            <i class="fa fa-trash-o"></i> 
+                        </a>
+
+                    </div>
+                </td>
+            </tr>
+            i++;
+            }
+          }
+        </tbody>
+    </table>
+</div>
+
+@*For Delete*@
+<!--bootstra pop up confirmation dialog-->
+@*<div class="modal" tabindex="-1" role="dialog" id="deletemodal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="Delete" method="post">
+                <div class="modal-body">
+                    <p class="alert">Are u sure want to delete?</p>
+                    <input type="hidden" name="CategoryID" id="categoryid"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function opendeletemodal(id) {
+        $('#categoryid').val(id);
+        $('#deletemodal').modal('show');
+    }
+</script>*@

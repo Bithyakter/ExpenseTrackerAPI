@@ -1,4 +1,5 @@
 ﻿using ExpenseTracker.Domain.Entities;
+using ExpenseTracker.Domain.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace ExpenseTracker.Infrastructure.Contracts
         /// <param name="expenseCategory">ExpenseCategory</param>
         /// <returns>Boolean</returns>
         bool IsExpenseCategoryDuplicate(ExpenseCategory expenseCategory);
+       IList<ExpenseCategoryVM> GetAllCategory();
     }
 }

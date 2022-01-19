@@ -18,6 +18,8 @@ namespace ExpenseTracker.Infrastructure.Repositories
         {
             this._context = context;
         }
+
+        #region getAllExpenses
         public IList<ExpenseVM> getAllExpenses()
         {
             var list = (from a in _context.Expenses
@@ -32,22 +34,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
                         }).ToList();
             return list;
         }
-
-        //public IEnumerable<ExpenseVM> getAllExpenses()
-        //{
-        //    var list = _context.Expenses
-        //                 join c in _context.ExpenseCategories on a.CategoryID equals c.CategoryID
-
-        //        select (Ex => new ExpenseVM()
-        //        {
-        //            ExpenseID = a.ExpenseID,
-        //            CategoryName = c.CategoryName,
-        //            Amount = a.Amount,
-        //            ExpenseDate = a.ExpenseDate
-        //        });
-        //    }
-        //}
-
+        #endregion
 
         //public void DeleteExpense(int id)
         //{

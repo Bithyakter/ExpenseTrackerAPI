@@ -12,7 +12,6 @@ namespace ExpenseTracker.Infrastructure.Repositories
     /// <summary>
     /// Implements IUnitOfWork interface.
     /// </summary>
-
     public class UnitOfWork : IUnitOfWork
     {
         private IExpenseCategoryRepository expenseCategoryRepository;
@@ -37,6 +36,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
 
                 return expenseCategoryRepository;
             }
+            
         }
 
         public IExpenseRepository ExpenseRepository

@@ -23,6 +23,7 @@ namespace ExpenseTracker.Infrastructure.Repositories
         {
             this._context = context;
         }
+
         public virtual T Add(T entity)
         {
             try
@@ -115,7 +116,6 @@ namespace ExpenseTracker.Infrastructure.Repositories
                 entity.IsRowDeleted = false;
                 entity.DateModified = DateTime.Now;
                 return _context.Set<T>().Update(entity).Entity;
-
             }
             catch
             {
