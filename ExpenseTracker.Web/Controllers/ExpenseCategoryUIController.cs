@@ -116,6 +116,5 @@ namespace ExpenseTracker.Web.Controllers
             return RedirectToAction("Index");
         }
         #endregion
-
     }
 }

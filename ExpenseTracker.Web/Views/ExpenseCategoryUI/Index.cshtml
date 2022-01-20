@@ -43,10 +43,9 @@
                         <a asp-controller="ExpenseCategoryUI" asp-route-Id="@obj.CategoryID" asp-action="Edit" class="btn btn-outline-success mx-2">
                             <i class="fa fa-pencil"></i>  
                         </a>
-                        <a asp-controller="ExpenseCategoryUI" asp-route-Id="@obj.CategoryID" asp-action="Delete" class="btn btn-outline-danger mx-2">
+                        <a onclick="opendeletemodal('@obj.CategoryID')" class="btn btn-outline-danger mx-2">
                             <i class="fa fa-trash-o"></i> 
                         </a>
-
                     </div>
                 </td>
             </tr>
@@ -57,20 +56,19 @@
     </table>
 </div>
 
-@*For Delete*@
 <!--bootstra pop up confirmation dialog-->
-@*<div class="modal" tabindex="-1" role="dialog" id="deletemodal">
+<div class="modal" tabindex="-1" role="dialog" id="deletemodal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Expense Category Delete</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form asp-action="Delete" method="post">
                 <div class="modal-body">
-                    <p class="alert">Are u sure want to delete?</p>
+                    <p class="alert">Are you sure want to Delete?</p>
                     <input type="hidden" name="CategoryID" id="categoryid"/>
                 </div>
                 <div class="modal-footer">
@@ -83,8 +81,8 @@
 </div>
 
 <script>
-    function opendeletemodal(id) {
+   function opendeletemodal(id) {
         $('#categoryid').val(id);
         $('#deletemodal').modal('show');
     }
-</script>*@
+</script>
