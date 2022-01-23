@@ -121,7 +121,22 @@ namespace ExpenseTracker.Infrastructure.Repositories
             {
                 throw;
             }
+
         }
+
+        //public IEnumerable<Expense> GetSearchResult(string searchString)
+        //{
+        //    List<Expense> exp = new List<Expense>();
+        //    try
+        //    {
+        //        exp = GetAll().ToList();
+        //        return exp.Where(x => x.ExpenseType.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) != -1);
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 
 }

@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Amount" class="control-label"></label>
-                            <input asp-for="Amount" class="form-control" />
+                            <input asp-for="Amount" class="form-control" data-val="true" data-val-length="The field Amount must be a Number with a minimum length of 3 and a maximum length of 50." data-val-length-max="50" data-val-length-min="3" data-val-required="The Amount field is required." placeholder="Amount"/>
                             <span asp-validation-for="Amount" class="text-danger"></span>
                         </div>
                         <div class="form-group">

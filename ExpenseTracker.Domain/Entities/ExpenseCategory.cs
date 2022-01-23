@@ -24,7 +24,7 @@ namespace ExpenseTracker.Domain.Entities
         /// <summary>
         /// Expense category name.
         /// </summary>
-        [Required(ErrorMessage = "Required!")]
+        [Required(ErrorMessage = "The Category field is required!")]
         [StringLength(60)]
         [Display(Name = "Expense category")]
         public string CategoryName { get; set; }

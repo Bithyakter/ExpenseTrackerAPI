@@ -3,19 +3,33 @@
     ViewBag.Title = "Expense List";
 }
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="https://use.fontawesome.com/c7a575b4de.js"></script>
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://use.fontawesome.com/c7a575b4de.js"></script>*@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
 <div class="container p-3">
-    <div class="row pt-4">
+    <div class="row pt-3">
         <div class="col-6">
             <h2 class="text-primary">Expense List</h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-controller="ExpenseUI" asp-action="Create" class="btn btn-primary">
-                <i class="fa fa-plus"></i> &nbsp; Create New Expense
-            </a>
-        </div>
+    </div>
+    <br />
+     <div class="col-6" style="float:left">
+        <a asp-controller="ExpenseUI" asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Create New Expense
+        </a>
+     </div>
+
+     @*Searching*@
+    <div style="float:right; width:40%;">
+        <form asp-controller="ExpenseUI" asp-action="Index" class="form-group">
+            <div class="form-group d-inline-block col-sm-6">
+                <input class="form-control" type="text" name="SearchString" placeholder="Search">
+            </div>
+            <div class="form-group d-inline-block">
+                <button type="submit" class="btn btn-default btn-info">Search</button>
+            </div>
+        </form>
     </div>
 
     <br /><br />
@@ -45,10 +59,10 @@
                 <td class="text-center" width="20%">
                     <div class="w-75 btn-group" role="group">
                         <a asp-controller="ExpenseUI" asp-route-Id="@obj.ExpenseID" asp-action="Edit" class="btn btn-outline-success mx-2">
-                            <i class="fa fa-pencil"></i>  
+                            <i class="bi bi-pencil-square"></i>  
                         </a>
                         <a asp-controller="ExpenseUI" asp-route-Id="@obj.ExpenseID" asp-action="Delete" class="btn btn-outline-danger mx-2">
-                            <i class="fa fa-trash-o"></i> 
+                            <i class="bi bi-trash"></i> 
                         </a>
                     </div>
                 </td>

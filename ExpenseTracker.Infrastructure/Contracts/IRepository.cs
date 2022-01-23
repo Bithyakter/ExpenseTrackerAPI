@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpenseTracker.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -60,6 +61,8 @@ namespace ExpenseTracker.Infrastructure.Contracts
         /// </summary>
         /// <param name="entity">Object to be updated.</param>
         T Update(T entity);
+
+        //IEnumerable<Expense> GetSearchResult(string searchString);
     }
     #endregion
 }

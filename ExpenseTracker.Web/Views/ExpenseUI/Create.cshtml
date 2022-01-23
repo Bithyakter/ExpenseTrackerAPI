@@ -7,6 +7,11 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://use.fontawesome.com/c7a575b4de.js"></script>
 
+@*Client side Validation*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
 <div class="row content-wrapper content">
     <div class="col-md-8">
         <div>
@@ -31,17 +36,18 @@
                                             </option>
                                         }
                                     </select> 
+                                    <span asp-validation-for="CategoryName" style="color: red;"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label asp-for="Amount" class="control-label"></label>
-                                    <input asp-for="Amount" class="form-control" />
+                                    <input asp-for="Amount" class="form-control" data-val="true" data-val-length="The field Amount must be a Number with a minimum length of 3 and a maximum length of 50." data-val-length-max="50" data-val-length-min="3" data-val-required="The Amount field is required." placeholder="Amount"/>
                                     <span asp-validation-for="Amount" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label asp-for="ExpenseDate" class="control-label"></label>
-                                    <input asp-for="ExpenseDate" class="form-control" />
+                                    <input asp-for="ExpenseDate" class="form-control"  id="datepicker" type="text" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
                                     <span asp-validation-for="ExpenseDate" class="text-danger"></span>
                                 </div>
                             </div>
@@ -67,4 +73,22 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+   @* For datetimepicker*@
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+       
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                format: 'mm-dd-yyyy',
+                changeMonth: true,
+                changeYear: true,
+                ignoreReadonly: true,
+                maxDate: 'now'
+            }) 
+        });
+    </script>
 }
+

@@ -24,15 +24,17 @@ namespace ExpenseTracker.Domain.Entities
         /// <summary>
         /// Date of Expenses
         /// </summary>
-        [Required(ErrorMessage = "Required!")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "The Expense Date is required!")]
         [Display(Name = "Expense date")]
         [Column(TypeName = "smalldatetime")]
-        public DateTime ExpenseDate { get; set; }
+        public DateTime ExpenseDate { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Expense Amount
         /// </summary>
-        [Required(ErrorMessage = "Required!")]
+        [Required(ErrorMessage = "The Amount field is required!")]
         [Display(Name = "Amount")]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }

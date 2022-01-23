@@ -3,8 +3,10 @@
     ViewBag.Title = "Expense Category List";
 }
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="https://use.fontawesome.com/c7a575b4de.js"></script>
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://use.fontawesome.com/c7a575b4de.js"></script>*@
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
 <div class="container p-3">
     <div class="row pt-4">
@@ -13,7 +15,7 @@
         </div>
         <div class="col-6 text-right">
             <a asp-controller="ExpenseCategoryUI" asp-action="Create" class="btn btn-primary">
-                <i class="fa fa-plus"></i> &nbsp; Create Expense Category
+                <i class="bi bi-plus-circle"></i> Create Expense Category
             </a>
         </div>
     </div>
@@ -41,10 +43,10 @@
                 <td class="text-center" width="40%">
                     <div class="w-75 btn-group" role="group">
                         <a asp-controller="ExpenseCategoryUI" asp-route-Id="@obj.CategoryID" asp-action="Edit" class="btn btn-outline-success mx-2">
-                            <i class="fa fa-pencil"></i>  
+                            <i class="bi bi-pencil-square"></i> 
                         </a>
                         <a onclick="opendeletemodal('@obj.CategoryID')" class="btn btn-outline-danger mx-2">
-                            <i class="fa fa-trash-o"></i> 
+                            <i class="bi bi-trash"></i>   
                         </a>
                     </div>
                 </td>

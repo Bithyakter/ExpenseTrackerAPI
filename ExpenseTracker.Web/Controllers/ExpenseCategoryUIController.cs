@@ -85,20 +85,20 @@ namespace ExpenseTracker.Web.Controllers
         }
         #endregion
 
-        #region HttpGet-Delete
-        [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var category = new ExpenseCategoryDTO();
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync("http://localhost:60228/api/ExpenseCategory/getbyid?id=" + id);
-                string result = response.Content.ReadAsStringAsync().Result;
-                category = JsonConvert.DeserializeObject<ExpenseCategoryDTO>(result);
-            }
-            return View(category);
-        }
-        #endregion
+        //#region HttpGet-Delete
+        //[HttpGet]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var category = new ExpenseCategoryDTO();
+        //    using (var client = new HttpClient())
+        //    {
+        //        var response = await client.GetAsync("http://localhost:60228/api/ExpenseCategory/getbyid?id=" + id);
+        //        string result = response.Content.ReadAsStringAsync().Result;
+        //        category = JsonConvert.DeserializeObject<ExpenseCategoryDTO>(result);
+        //    }
+        //    return View(category);
+        //}
+        //#endregion
 
         #region HttpPost-Delete
         [HttpPost]
