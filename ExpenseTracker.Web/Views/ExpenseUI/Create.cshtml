@@ -47,9 +47,15 @@
 
                                 <div class="form-group">
                                     <label asp-for="ExpenseDate" class="control-label"></label>
-                                    <input asp-for="ExpenseDate" class="form-control"  id="datepicker" type="text" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+                                    <div class='input-group date'>
+                                        <input asp-for="ExpenseDate" id="datepicker" type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+                                        <span class="input-group-addon" id="btnPicker">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
                                     <span asp-validation-for="ExpenseDate" class="text-danger"></span>
                                 </div>
+
                             </div>
 
                             <div class="box-footer">
@@ -76,18 +82,26 @@
 
    @* For datetimepicker*@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-       
-    <script>
+
+   <script>
         $(function () {
             $("#datepicker").datepicker({
                 format: 'mm-dd-yyyy',
                 changeMonth: true,
-                changeYear: true,
+                changeYerar: true,
                 ignoreReadonly: true,
-                maxDate: 'now'
-            }) 
+                maxDate:'now'
+            });
+
+        });
+        $("#btnPicker").click(function () {
+
+        $("#datepicker").focus();
         });
     </script>
 }

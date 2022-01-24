@@ -1,6 +1,7 @@
 ﻿using ExpenseTracker.Domain.Entities;
 using ExpenseTracker.Domain.ViewModel;
 using ExpenseTracker.Infrastructure.Contracts;
+using ExpenseTracker.Infrastructure.SqlServer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,8 @@ namespace ExpenseTracker.API.Controllers
     {
         public readonly IUnitOfWork _unitOfWork;
 
+        private readonly DataContext _context;
+       
         public ExpenseCategoryController(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
