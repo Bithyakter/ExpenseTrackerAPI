@@ -34,11 +34,11 @@ namespace ExpenseTracker.Infrastructure.Repositories
         {
             try
             {
-                var catInDb = _context.ExpenseCategories.FirstOrDefault(c => c.CategoryName.ToLower() == expenseCategory.CategoryName.ToLower());
+                var catInDb = _context.ExpenseCategories.FirstOrDefault(c => c.CategoryName.ToLower().Replace(" ", "-") == expenseCategory.CategoryName.ToLower().Replace(" ", "-"));
 
                 if (catInDb != null)
                 {
-                    if (catInDb.CategoryID != expenseCategory.CategoryID)
+                    //if (catInDb.CategoryID != expenseCategory.CategoryID)
                         return true;
                 }
 

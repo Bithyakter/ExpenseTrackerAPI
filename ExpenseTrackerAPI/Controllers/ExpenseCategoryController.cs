@@ -41,9 +41,19 @@ namespace ExpenseTracker.API.Controllers
         {
             if (category.CategoryID == 0)
             {
-                var categoryAdd = _unitOfWork.ExpenseCategoryRepository.Add(category);
-                _unitOfWork.SaveChanges();
-                return Ok(categoryAdd);
+                var IsExist = _unitOfWork.ExpenseCategoryRepository.IsExpenseCategoryDuplicate(category);
+
+                if(!IsExist)
+                {
+                    var categoryAdd = _unitOfWork.ExpenseCategoryRepository.Add(category);
+                    _unitOfWork.SaveChanges();
+                    return Ok(categoryAdd);
+                }
+                else
+                {
+                    return BadRequest("Duplicate Found!");
+                }
+                
             }
             else
             {

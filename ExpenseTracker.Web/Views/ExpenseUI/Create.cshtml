@@ -47,12 +47,14 @@
 
                                 <div class="form-group">
                                     <label asp-for="ExpenseDate" class="control-label"></label>
-                                    <div class='input-group date'>
+                                    
+                                    <div class="input-group date"">
                                         <input asp-for="ExpenseDate" id="datepicker" type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
                                         <span class="input-group-addon" id="btnPicker">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
                                     </div>
+
                                     <span asp-validation-for="ExpenseDate" class="text-danger"></span>
                                 </div>
 

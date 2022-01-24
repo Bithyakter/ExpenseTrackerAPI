@@ -23,6 +23,8 @@ namespace ExpenseTracker.Web.Models
         [Required(ErrorMessage = "The Category Name field is required!")]
         [Display(Name = "Category Name")]
         public string CategoryName { get; set; }
+
+        public bool IsDuplicateFound { get; set; }
         public List<ExpenseDTO> CategoryList { get; set; }
     }
 }
