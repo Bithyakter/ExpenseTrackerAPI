@@ -2,12 +2,8 @@
 @{
     ViewBag.Title = "Expense Category List";
 }
- @if (TempData["DeleteError"] != null)
-    {
-    <h2 class="alert-danger">
-        @TempData["DeleteError"]
-    </h2>
-    }
+
+<partial name="_Notification"/>
 
 @*<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://use.fontawesome.com/c7a575b4de.js"></script>*@

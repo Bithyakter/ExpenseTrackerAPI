@@ -59,6 +59,8 @@ namespace ExpenseTracker.Web.Controllers
 
                 string result = response.Content.ReadAsStringAsync().Result;
             }
+            TempData["Success"] = "Data Created Successfully!";
+
             return RedirectToAction("Index");
         }
         #endregion
@@ -98,6 +100,8 @@ namespace ExpenseTracker.Web.Controllers
 
                 string result = response.Content.ReadAsStringAsync().Result;
             }
+            TempData["Success"] = "Data Updated Successfully!";
+
             return RedirectToAction("Index");
         }
         #endregion
@@ -130,6 +134,7 @@ namespace ExpenseTracker.Web.Controllers
 
                 string result = response.Content.ReadAsStringAsync().Result;
             }
+            TempData["Success"] = "Data Updated Successfully!";
             return RedirectToAction("Index");
         }
         #endregion

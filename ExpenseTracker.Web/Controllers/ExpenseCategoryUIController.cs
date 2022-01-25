@@ -56,8 +56,8 @@ namespace ExpenseTracker.Web.Controllers
                     ModelState.AddModelError("CategoryName", "Duplicate Found!");
                     return View(category);
                 }
-
             }
+            TempData["Success"] = "Data Created Successfully!";
             return RedirectToAction("Index");
         }
         #endregion
@@ -101,7 +101,7 @@ namespace ExpenseTracker.Web.Controllers
                 }
 
             }
-            TempData["Success"] = "Data Edited Successfully!";
+            TempData["Success"] = "Data Updated Successfully!";
 
             return RedirectToAction("Index");
         }
@@ -161,6 +161,7 @@ namespace ExpenseTracker.Web.Controllers
                     return RedirectToAction("Index");
                 }
             }
+            TempData["Success"] = "Data Deleted Successfully!";
             return RedirectToAction("Index");
         }
         #endregion
