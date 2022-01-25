@@ -28,13 +28,23 @@ namespace ExpenseTracker.Infrastructure.Repositories
                         }).ToList();
             return list;
         }
-                              
+
+        public bool IsDeleteID(int categoryId)
+        {
+            var DeleteID = _context.Expenses.FirstOrDefault(c => c.CategoryID == categoryId && !c.IsRowDeleted);
+            if (DeleteID != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         #region IsExpenseCategoryDuplicate
         public bool IsExpenseCategoryDuplicate(ExpenseCategory expenseCategory)
         {
             try
             {
-                var catInDb = _context.ExpenseCategories.FirstOrDefault(c => c.CategoryName.ToLower().Replace(" ", "-") == expenseCategory.CategoryName.ToLower().Replace(" ", "-"));
+                var catInDb = _context.ExpenseCategories.FirstOrDefault(c => c.CategoryName.ToLower().Replace(" ", "-") == expenseCategory.CategoryName.ToLower().Replace(" ", "-") && !c.IsRowDeleted);
 
                 if (catInDb != null)
                 {

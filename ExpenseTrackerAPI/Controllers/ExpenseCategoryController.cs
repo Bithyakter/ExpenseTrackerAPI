@@ -47,6 +47,7 @@ namespace ExpenseTracker.API.Controllers
                 {
                     var categoryAdd = _unitOfWork.ExpenseCategoryRepository.Add(category);
                     _unitOfWork.SaveChanges();
+                    //TempData["AlertMessage"] = "Expense Created Successfully !";
                     return Ok(categoryAdd);
                 }
                 else
@@ -65,16 +66,35 @@ namespace ExpenseTracker.API.Controllers
         }
         #endregion
 
-        #region HttpPost-Delete
-        [HttpPost("delete")]
-        public IActionResult Delete([FromBody] ExpenseCategoryVM category)
-        {
-            var categoryInDb = _unitOfWork.ExpenseCategoryRepository.Get(category.CategoryID);
-            _unitOfWork.ExpenseCategoryRepository.Delete(categoryInDb);
-            _unitOfWork.SaveChanges();
+        //#region HttpPost-Delete
+        //[HttpPost("delete")]
+        //public IActionResult Delete([FromBody] ExpenseCategoryVM category)
+        //{
+        //    var categoryInDb = _unitOfWork.ExpenseCategoryRepository.Get(category.CategoryID);
+        //    _unitOfWork.ExpenseCategoryRepository.Delete(categoryInDb);
+        //    _unitOfWork.SaveChanges();
 
-            return Ok();
+        //    return Ok();
+        //}
+        //#endregion
+        
+
+        [HttpPost("delete")]
+        public IActionResult Delete([FromBody] ExpenseCategoryVM cat)
+        {
+            var IsIdHas = _unitOfWork.ExpenseCategoryRepository.IsDeleteID(cat.CategoryID);
+            if (!IsIdHas)
+            {
+                var expenseInDb = _unitOfWork.ExpenseCategoryRepository.Get(cat.CategoryID);
+                _unitOfWork.ExpenseCategoryRepository.Delete(expenseInDb);
+                _unitOfWork.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("You can't delete this!");
+            }
+
         }
-        #endregion
     }
 }

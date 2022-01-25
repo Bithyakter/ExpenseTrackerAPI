@@ -17,5 +17,6 @@ namespace ExpenseTracker.Infrastructure.Contracts
         /// <returns>Boolean</returns>
         bool IsExpenseCategoryDuplicate(ExpenseCategory expenseCategory);
        IList<ExpenseCategoryVM> GetAllCategory();
+       bool IsDeleteID(int categoryId);
     }
 }
