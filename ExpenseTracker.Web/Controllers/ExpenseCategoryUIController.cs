@@ -89,8 +89,20 @@ namespace ExpenseTracker.Web.Controllers
                 HttpContent httpContent = new StringContent(expenseJson, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync("http://localhost:60228/api/ExpenseCategory", httpContent);
 
-                string result = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                }
+                else
+                {
+                    category.IsDuplicateFound = true;
+                    ModelState.AddModelError("CategoryName", "Duplicate Found!");
+                    return View(category);
+                }
+
             }
+            TempData["Success"] = "Data Edited Successfully!";
+
             return RedirectToAction("Index");
         }
         #endregion
@@ -127,6 +139,7 @@ namespace ExpenseTracker.Web.Controllers
         //}
         //#endregion
 
+        #region HttpPost-Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(ExpenseCategoryDTO dto)
@@ -142,16 +155,14 @@ namespace ExpenseTracker.Web.Controllers
                 }
                 else
                 {
-
-                    ModelState.AddModelError("CategoryID", "You can't delete this!");
-                    TempData["DeleteError"] = "You can't delete!";
+                    ModelState.AddModelError("CategoryID", "You can't Delete this!");
+                    TempData["DeleteError"] = "You can't Delete!";
 
                     return RedirectToAction("Index");
                 }
-
-
             }
             return RedirectToAction("Index");
         }
+        #endregion
     }
 }

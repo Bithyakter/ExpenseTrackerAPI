@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Domain.Entities;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using ExpenseTracker.Domain.Entities;
 using ExpenseTracker.Infrastructure.Contracts;
 using ExpenseTracker.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ namespace ExpenseTracker.API.Controllers
     public class ExpenseController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        
         public ExpenseController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

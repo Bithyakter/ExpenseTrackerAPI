@@ -39,15 +39,14 @@ namespace ExpenseTracker.API.Controllers
         [HttpPost]
         public IActionResult SaveOrUpdate([FromBody] ExpenseCategory category)
         {
+            var IsExist = _unitOfWork.ExpenseCategoryRepository.IsExpenseCategoryDuplicate(category);
+
             if (category.CategoryID == 0)
             {
-                var IsExist = _unitOfWork.ExpenseCategoryRepository.IsExpenseCategoryDuplicate(category);
-
-                if(!IsExist)
+              if(!IsExist)
                 {
                     var categoryAdd = _unitOfWork.ExpenseCategoryRepository.Add(category);
                     _unitOfWork.SaveChanges();
-                    //TempData["AlertMessage"] = "Expense Created Successfully !";
                     return Ok(categoryAdd);
                 }
                 else
@@ -58,10 +57,16 @@ namespace ExpenseTracker.API.Controllers
             }
             else
             {
-                var categoryUp = _unitOfWork.ExpenseCategoryRepository.Update(category);
-                _unitOfWork.SaveChanges();
-
-                return Ok(categoryUp);
+                if(!IsExist)
+                    {
+                    var categoryUp = _unitOfWork.ExpenseCategoryRepository.Update(category);
+                    _unitOfWork.SaveChanges();
+                    return Ok(categoryUp);
+                }
+               else
+                {
+                    return BadRequest("Duplicate Found!");
+                }
             }
         }
         #endregion
@@ -77,8 +82,9 @@ namespace ExpenseTracker.API.Controllers
         //    return Ok();
         //}
         //#endregion
-        
 
+
+        #region Delete
         [HttpPost("delete")]
         public IActionResult Delete([FromBody] ExpenseCategoryVM cat)
         {
@@ -92,9 +98,10 @@ namespace ExpenseTracker.API.Controllers
             }
             else
             {
-                return BadRequest("You can't delete this!");
+                return BadRequest("You can't Delete this!");
             }
 
         }
+        #endregion
     }
 }
