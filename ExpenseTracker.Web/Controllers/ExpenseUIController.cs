@@ -5,24 +5,26 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Text;
+using System.Linq;
+using ReflectionIT.Mvc.Paging;
 
 namespace ExpenseTracker.Web.Controllers
 {
     public class ExpenseUIController : Controller
     {
         #region Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageIndex = 1)
         {
-            var expense = new List<ExpenseDTO>();
-
-           using (var client = new HttpClient())
-           {
-               var response = await client.GetAsync("http://localhost:60228/api/Expense");
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync("http://localhost:60228/api/Expense");
 
                 string result = response.Content.ReadAsStringAsync().Result;
-                expense = JsonConvert.DeserializeObject<List<ExpenseDTO>>(result);
+                var expense = JsonConvert.DeserializeObject<List<ExpenseDTO>>(result);
+                expense = expense.OrderBy(i => i.ExpenseID).ToList();
+                var pagedExpense = PagingList.Create(expense, 2, pageIndex);
+                return View(pagedExpense);
             }
-            return View(expense);
         }
         #endregion
 

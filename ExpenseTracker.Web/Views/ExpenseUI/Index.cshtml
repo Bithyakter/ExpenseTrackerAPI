@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ExpenseDTO>
+﻿@*@model IEnumerable<ExpenseDTO>*@
+@model ReflectionIT.Mvc.Paging.PagingList<ExpenseDTO>
 @using ReflectionIT.Mvc.Paging
 @addTagHelper *, ReflectionIT.Mvc.Paging
 
@@ -14,10 +15,9 @@
 @*PartialView render*@
 <partial name="_Notification"/>
 
-<nav aria-label="Suppliers navigation example">
-    @await this.Component.InvokeAsync("Pager", new { pagingList = this.Model })
+<nav aria-label="Expense navigation example">
+    <vc:pager paging-list="@Model" />
 </nav>
-
 
 <!--Main Div START-->
 <div class="container p-3">
