@@ -8,15 +8,17 @@
 
  <!-- Main Div Start -->
 <div class="row content-wrapper content">
-    <div class="col-md-8">
+    <div class="col-md-8 offset-md-2 p-4 bg-light shadow">
+       <!--Section START-->
         <section>
-            <!-- general form elements -->
+            <!-- General form elements -->
             <div class="box box-primary">
-                <div class="box-header with-border">
+                <div class="box-header with-border text-primary">
                     <h3 class="box-title">Edit Category</h3>
                 </div>
                   <hr />
                 <form method="post" role="form" asp-action="Edit">
+                    <!--Box body START-->
                     <div class="box-body">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                        
@@ -27,12 +29,15 @@
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="CategoryName" class="control-label"></label>
+                            <label asp-for="CategoryName" class="control-label text-secondary"></label>
                             <input asp-for="CategoryName" class="form-control" placeholder="Category Name"/>
                             <span asp-validation-for="CategoryName" class="text-danger"></span>
                         </div>
                     </div>
+                    <!--Box body END-->
                     <br /><br />
+
+                    <!--Box footer START-->
                      <div class="box-footer">
                         <div class="col-lg-4 col-md-4 pull-right form-group">
                             <button class="btn btn-primary btn-block" value="Save" type="submit">
@@ -44,12 +49,14 @@
                             <a class="form-group btn btn-danger btn-block bi bi-arrow-left-circle-fill" href="/ExpenseCategoryUI/Index"><span> Back</span></a>
                         </div>
                     </div>
-
+                    <!--Box footer END-->
                 </form>
             </div>
          </section>
+         <!--Section START-->
     </div>
 </div>
+<!-- Main Div END -->
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
