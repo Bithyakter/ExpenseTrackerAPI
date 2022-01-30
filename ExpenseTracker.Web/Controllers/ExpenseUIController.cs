@@ -23,11 +23,17 @@ namespace ExpenseTracker.Web.Controllers
                 string result = response.Content.ReadAsStringAsync().Result;
                 var expense = JsonConvert.DeserializeObject<List<ExpenseDTO>>(result);
                 expense = expense.OrderBy(i => i.ExpenseID).ToList();
+
+
+                //if (!string.IsNullOrWhiteSpace(filter))
+                //{
+                //    result = result.Where(p => p.CategoryName.Contains(filter));
+                //}
                 var pagedExpense = PagingList.Create(expense, 2, pageIndex, sortExpression, "CompanyName");
 
-                pagedExpense.RouteValue = new RouteValueDictionary {
-                { "filter", filter}
-                };
+                //pagedExpense.RouteValue = new RouteValueDictionary {
+                //{ "filter", filter}
+                //};
 
                 return View(pagedExpense);
             }
