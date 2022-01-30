@@ -7,13 +7,14 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Linq;
 using ReflectionIT.Mvc.Paging;
+using Microsoft.AspNetCore.Routing;
 
 namespace ExpenseTracker.Web.Controllers
 {
     public class ExpenseUIController : Controller
     {
         #region Index
-        public async Task<IActionResult> Index(int pageIndex = 1)
+        public async Task<IActionResult> Index(string filter, int pageIndex = 1, string sortExpression= "CategoryName")
         {
             using (var client = new HttpClient())
             {
@@ -22,7 +23,12 @@ namespace ExpenseTracker.Web.Controllers
                 string result = response.Content.ReadAsStringAsync().Result;
                 var expense = JsonConvert.DeserializeObject<List<ExpenseDTO>>(result);
                 expense = expense.OrderBy(i => i.ExpenseID).ToList();
-                var pagedExpense = PagingList.Create(expense, 2, pageIndex);
+                var pagedExpense = PagingList.Create(expense, 2, pageIndex, sortExpression, "CompanyName");
+
+                pagedExpense.RouteValue = new RouteValueDictionary {
+                { "filter", filter}
+                };
+
                 return View(pagedExpense);
             }
         }

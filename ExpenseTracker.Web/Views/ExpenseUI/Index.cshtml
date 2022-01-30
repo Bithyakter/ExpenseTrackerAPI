@@ -7,17 +7,18 @@
     ViewBag.Title = "Expense List";
 }
 
-@*Essential Link*@
+<!--- Essential Link --->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
 @*<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://use.fontawesome.com/c7a575b4de.js"></script>*@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
 @*PartialView render*@
 <partial name="_Notification"/>
-
-<nav aria-label="Expense navigation example">
-    <vc:pager paging-list="@Model" />
-</nav>
 
 <!--Main Div START-->
 <div class="container p-3">
@@ -52,7 +53,10 @@
         <thead class="table-info">
             <tr class="text-center" style="font-size:16px">
                 <th>SL</th>
-                <th>Category Name</th>
+                @*<th>Category Name</th>*@
+                 <th>
+                    @Html.SortableHeaderFor(model => model.CategoryName, this.Model)
+                 </th>
                 <th>Amount</th>
                 <th>Expense Date</th>
                 <th>Action</th>
@@ -91,3 +95,8 @@
     <!--Table END-->
 </div>
 <!--Main Div END-->
+
+<!--For Pagination-->
+<nav>
+   <vc:pager paging-list="@Model" />
+</nav>
