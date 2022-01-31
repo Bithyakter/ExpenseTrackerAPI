@@ -1,7 +1,10 @@
 ﻿using ExpenseTracker.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
+using ReflectionIT.Mvc.Paging;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +14,7 @@ namespace ExpenseTracker.Web.Controllers
     public class ExpenseCategoryUIController : Controller
     {
         #region Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filter, int pageIndex = 1, string sortExpression = "CategoryName")
         {
             var category = new List<ExpenseCategoryDTO>();
 
@@ -22,7 +25,20 @@ namespace ExpenseTracker.Web.Controllers
                 string result = response.Content.ReadAsStringAsync().Result;
                 category = JsonConvert.DeserializeObject<List<ExpenseCategoryDTO>>(result);
             }
-            return View(category);
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+
+                category = category.Where(p => p.CategoryName.Contains(filter)).ToList();
+
+            }
+            var pagedCategory = PagingList.Create(category, 3, pageIndex, sortExpression, "CompanyName");
+
+            pagedCategory.RouteValue = new RouteValueDictionary {
+                { "filter", filter}
+                };
+
+            return View(pagedCategory);
         }
         #endregion
 

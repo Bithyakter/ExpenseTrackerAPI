@@ -14,7 +14,7 @@ namespace ExpenseTracker.Web.Controllers
     public class ExpenseUIController : Controller
     {
         #region Index
-        public async Task<IActionResult> Index(string filter, int pageIndex = 1, string sortExpression= "CategoryName")
+        public async Task<IActionResult> Index(string Search, int pageIndex = 1, string sortExpression= "CategoryName")
         {
             using (var client = new HttpClient())
             {
@@ -25,16 +25,16 @@ namespace ExpenseTracker.Web.Controllers
                 expense = expense.OrderBy(i => i.ExpenseID).ToList();
 
 
-                if (!string.IsNullOrWhiteSpace(filter))
+                if (!string.IsNullOrWhiteSpace(Search))
                 {
 
-                    expense = expense.Where(p => p.CategoryName.Contains(filter)).ToList();
+                    expense = expense.Where(p => p.CategoryName.Contains(Search)).ToList();
                     
                 }
                 var pagedExpense = PagingList.Create(expense, 3, pageIndex, sortExpression, "CompanyName");
 
                 pagedExpense.RouteValue = new RouteValueDictionary {
-                { "filter", filter}
+                { "search", Search}
                 };
 
                 return View(pagedExpense);

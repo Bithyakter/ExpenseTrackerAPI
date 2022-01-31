@@ -1,7 +1,17 @@
-﻿@model IEnumerable<ExpenseCategoryDTO>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ExpenseCategoryDTO>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+
 @{
     ViewBag.Title = "Expense Category List";
 }
+
+<!--- Essential Link --->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
 <partial name="_Notification"/>
 
@@ -22,13 +32,23 @@
         </div>
     </div>
 
+     <form method="get" class="form-inline">
+        <input name="filter" class="form-control" placeholder="Filter"
+               value="@Model.RouteValue["Filter"]" />
+        <button type="submit" class="btn btn-danger">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+        </button>
+    </form>
+
     <br /><br />
 
     <table class="table table-bordered table-striped" border="1" style="width:100%">
         <thead class="table-info">
             <tr class="text-center">
                 <th>SL</th>
-                <th>Category Name</th>
+                <th>
+                     @Html.SortableHeaderFor(model => model.CategoryName, this.Model)
+                </th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -90,3 +110,8 @@
         $('#deletemodal').modal('show');
     }
 </script>
+
+<!--For Pagination-->
+<nav>
+   <vc:pager paging-list="@Model" />
+</nav>
