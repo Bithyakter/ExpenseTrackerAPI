@@ -25,15 +25,17 @@ namespace ExpenseTracker.Web.Controllers
                 expense = expense.OrderBy(i => i.ExpenseID).ToList();
 
 
-                //if (!string.IsNullOrWhiteSpace(filter))
-                //{
-                //    result = result.Where(p => p.CategoryName.Contains(filter));
-                //}
-                var pagedExpense = PagingList.Create(expense, 2, pageIndex, sortExpression, "CompanyName");
+                if (!string.IsNullOrWhiteSpace(filter))
+                {
 
-                //pagedExpense.RouteValue = new RouteValueDictionary {
-                //{ "filter", filter}
-                //};
+                    expense = expense.Where(p => p.CategoryName.Contains(filter)).ToList();
+                    
+                }
+                var pagedExpense = PagingList.Create(expense, 3, pageIndex, sortExpression, "CompanyName");
+
+                pagedExpense.RouteValue = new RouteValueDictionary {
+                { "filter", filter}
+                };
 
                 return View(pagedExpense);
             }
