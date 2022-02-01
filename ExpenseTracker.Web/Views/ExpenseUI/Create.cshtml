@@ -53,7 +53,7 @@
                         <div class="form-group">
                             <label asp-for="ExpenseDate" class="control-label text-secondary"></label>
                                     
-                            <div class="input-group date"">
+                            <div class="input-group date">
                                 <input asp-for="ExpenseDate" id="datepicker" type="text" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
                                 <span class="input-group-addon" id="btnPicker">
                                     <span class="glyphicon glyphicon-calendar"></span>
@@ -69,13 +69,13 @@
 
                     <!-- Box Footer START -->
                     <div class="box-footer">
-                        <div class="col-lg-4 col-md-4 pull-right form-group">
+                        <div class="col-md-4 col-sm-8 pull-right form-group">
                             <button class="btn btn-primary btn-block " value="Create" type="submit">
                                 <i class="bi bi-plus-square"></i>
                                 <span>Create Expense</span>
                             </button>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4 col-sm-8">
                             <a class="form-group btn btn-danger btn-block bi bi-arrow-left-circle-fill" href="/ExpenseUI/Index"><span> Back</span></a>
                         </div>
                     </div>
